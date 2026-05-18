@@ -1,81 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gideon's Travel Guide</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🗺️%3C/text%3E%3C/svg%3E">
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🗺️%3C/text%3E%3C/svg%3E"
+    />
 
     <!-- Load jsVectorMap CSS for map styling -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css"
+    />
     <!-- Load Google Fonts - Google Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Google Sans', system-ui, -apple-system, sans-serif;
-            margin: 0; /* Remove default body margin */
-            padding: 0; /* Remove default body padding */
-            background-color: #f8fafc;
-            overflow: hidden; /* Hide scrollbars if content exceeds viewport */
-        }
+      body {
+        font-family:
+          "Google Sans",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        margin: 0; /* Remove default body margin */
+        padding: 0; /* Remove default body padding */
+        background-color: #f8fafc;
+        overflow: hidden; /* Hide scrollbars if content exceeds viewport */
+      }
 
-        /* Style for the overlay container */
-        .header-overlay {
-            position: absolute; /* Position above the map */
-            top: 20px; /* Distance from the top */
-            left: 50%; /* Center horizontally */
-            transform: translateX(-50%); /* Adjust for true centering */
-            z-index: 100; /* Ensure it's above the map */
-            text-align: center;
-            max-width: 90%; /* Prevent overlay from going too wide on small screens */
-            padding: 15px 30px; /* Add padding around the text */
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.8) 70%, rgba(255, 255, 255, 0) 100%); /* White gradient fading to transparent */
-            border-radius: 12px; /* Soften the corners */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-            opacity: 0; /* Start invisible for fade-in */
-            animation: fadeIn 1.5s ease-out 0.5s forwards; /* Fade-in animation */
-        }
+      /* Style for the overlay container */
+      .header-overlay {
+        position: absolute; /* Position above the map */
+        top: 20px; /* Distance from the top */
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Adjust for true centering */
+        z-index: 100; /* Ensure it's above the map */
+        text-align: center;
+        max-width: 90%; /* Prevent overlay from going too wide on small screens */
+        padding: 15px 30px; /* Add padding around the text */
+        background: linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 0.8) 70%,
+          rgba(255, 255, 255, 0) 100%
+        ); /* White gradient fading to transparent */
+        border-radius: 12px; /* Soften the corners */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        opacity: 0; /* Start invisible for fade-in */
+        animation: fadeIn 1.5s ease-out 0.5s forwards; /* Fade-in animation */
+      }
 
-        /* Keyframe animation for fade-in */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -20px); /* Slight upward movement while fading */
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%);
-            }
+      /* Keyframe animation for fade-in */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translate(
+            -50%,
+            -20px
+          ); /* Slight upward movement while fading */
         }
+        to {
+          opacity: 1;
+          transform: translateX(-50%);
+        }
+      }
 
-        /* Adjust h1 and h2 styles within the overlay */
-        .header-overlay h1 {
-            color: #1a202c;
-            margin-bottom: 20px;
-        }
-        .header-overlay h2 {
-            color: #4a5568;
-            margin-top: -10px; /* Adjust spacing */
-            font-size: 1.3em; /* Making the subheader a bit smaller */
-        }
-        /* Style the container holding the map */
-        #map-container {
-            width: 100vw; /* Make map fill full viewport width */
-            height: 100vh; /* Make map fill full viewport height */
-            /* Removed max-width, padding, background, border-radius, box-shadow for a seamless fullscreen look */
-            background-color: transparent; /* Ensure body background can show through if desired */
-        }
+      /* Adjust h1 and h2 styles within the overlay */
+      .header-overlay h1 {
+        color: #1a202c;
+        margin-bottom: 20px;
+      }
+      .header-overlay h2 {
+        color: #4a5568;
+        margin-top: -10px; /* Adjust spacing */
+        font-size: 1.3em; /* Making the subheader a bit smaller */
+      }
+      /* Style the container holding the map */
+      #map-container {
+        width: 100vw; /* Make map fill full viewport width */
+        height: 100vh; /* Make map fill full viewport height */
+        /* Removed max-width, padding, background, border-radius, box-shadow for a seamless fullscreen look */
+        background-color: transparent; /* Ensure body background can show through if desired */
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="header-overlay">
-        <h1>Gideon's Travel Guide</h1>
-        <h2>An interactive world map of the places to go!</h2>
+      <h1>Gideon's Travel Guide</h1>
+      <h2>An interactive world map of the places to go!</h2>
     </div>
     <div id="map-container"></div>
 
@@ -84,113 +105,162 @@
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
 
     <script>
-        const regionsConfig = {
-            "North America": {
-                countries: ["US", "CA"],
-                link: "https://na.gideontong.com/",
-                color: "#3b82f6" // Blue
-            },
-            "Central America": {
-                countries: ["BZ", "CR", "SV", "GT", "HN", "NI", "PA", "MX"], // Mexico added
-                link: "https://centralamerica.gideontong.com/",
-                color: "#0ea5e9" // Light Blue
-            },
-            "South America": {
-                countries: ["CL", "EC", "CO"],
-                link: "https://southamerica.gideontong.com/",
-                color: "#10b981" // Green
-            },
-            "Europe": {
-                countries: ["AL", "AD", "AT", "BE", "BA", "BG", "HR", "CY", "CZ", "DK", "FI", "FR", "DE", "GR", "HU", "IS", "IE", "IT", "LV", "LU", "MK", "MT", "MD", "MC", "ME", "NL", "NO", "PL", "PT", "RO", "SM", "RS", "SK", "SI", "ES", "SE", "CH", "GB", "VA", "XK", "TR"], // Kosovo (XK) and Turkey (TR) added
-                link: "https://europe.gideontong.com/",
-                color: "#f59e0b" // Amber
-            },
-            "East Asia": {
-                countries: ["JP", "ID", "SG", "TH", "VN", "CN", "KR", "TW", "MY"],
-                link: "https://asia.gideontong.com/",
-                color: "#ef4444" // Red
-            },
-            "South Asia": {
-                countries: ["IN"], // Just India for now
-                link: "https://southasia.gideontong.com/",
-                color: "#d946ef" // Fuchsia
-            },
-            "Middle East": {
-                countries: ["SY"], // Just Syria for now
-                link: "https://middleeast.gideontong.com/",
-                color: "#8b5cf6" // Violet
-            },
-            "Oceania": {
-                countries: ["AU", "NZ"], // AUS and NZ
-                link: "https://oceania.gideontong.com/",
-                color: "#ec4899" // Pink
-            }
-        };
+      const regionsConfig = {
+        "North America": {
+          countries: ["US", "CA"],
+          link: "https://na.gideontong.com/",
+          color: "#3b82f6", // Blue
+        },
+        "Central America": {
+          countries: ["MX"], // Mexico only
+          link: "https://centralamerica.gideontong.com/",
+          color: "#0ea5e9", // Light Blue
+        },
+        "South America": {
+          countries: ["CL", "EC", "CO"],
+          link: "https://southamerica.gideontong.com/",
+          color: "#10b981", // Green
+        },
+        Europe: {
+          countries: [
+            "AL",
+            "AD",
+            "AT",
+            "BE",
+            "BA",
+            "BG",
+            "HR",
+            "CY",
+            "CZ",
+            "DK",
+            "FI",
+            "FR",
+            "DE",
+            "GR",
+            "HU",
+            "IS",
+            "IE",
+            "IT",
+            "LV",
+            "LU",
+            "MK",
+            "MT",
+            "MD",
+            "MC",
+            "ME",
+            "NL",
+            "NO",
+            "PL",
+            "PT",
+            "RO",
+            "SM",
+            "RS",
+            "SK",
+            "SI",
+            "ES",
+            "SE",
+            "CH",
+            "GB",
+            "VA",
+            "XK",
+            "TR",
+          ], // Kosovo (XK) and Turkey (TR) added
+          link: "https://europe.gideontong.com/",
+          color: "#f59e0b", // Amber
+        },
+        "East Asia": {
+          countries: ["JP", "ID", "SG", "TH", "VN", "CN", "KR", "TW", "MY"],
+          link: "https://asia.gideontong.com/",
+          color: "#ef4444", // Red
+        },
+        "South Asia": {
+          countries: ["IN"], // Just India for now
+          link: "https://southasia.gideontong.com/",
+          color: "#d946ef", // Fuchsia
+        },
+        "Middle East": {
+          countries: ["SY"], // Just Syria for now
+          link: "https://middleeast.gideontong.com/",
+          color: "#8b5cf6", // Violet
+        },
+        Oceania: {
+          countries: ["AU", "NZ"], // AUS and NZ
+          link: "https://oceania.gideontong.com/",
+          color: "#ec4899", // Pink
+        },
+        Africa: {
+          countries: ["MG"], // Madagascar
+          link: "https://africa.gideontong.com/",
+          color: "#facc15", // Yellow
+        },
+      };
 
-        // 2. Process the config so the map library can understand it
-        const countryToRegionMap = {};
-        const regionColors = {};
+      // 2. Process the config so the map library can understand it
+      const countryToRegionMap = {};
+      const regionColors = {};
 
-        Object.entries(regionsConfig).forEach(([regionName, data]) => {
-            regionColors[regionName] = data.color;
-            data.countries.forEach(countryCode => {
-                countryToRegionMap[countryCode] = regionName;
-            });
+      Object.entries(regionsConfig).forEach(([regionName, data]) => {
+        regionColors[regionName] = data.color;
+        data.countries.forEach((countryCode) => {
+          countryToRegionMap[countryCode] = regionName;
         });
+      });
 
-        // 3. Initialize the Map
-        const map = new jsVectorMap({
-            selector: "#map-container",
-            map: "world",
-            backgroundColor: "transparent",
-            
-            // Base styling for the map
-            regionStyle: {
-                initial: {
-                    fill: "#e2e8f0", // Gray color for unassigned countries
-                    fillOpacity: 1,
-                    stroke: "#cbd5e1",
-                    strokeWidth: 0.5,
-                },
-                hover: {
-                    fillOpacity: 0.8,
-                    cursor: 'pointer'
-                }
+      // 3. Initialize the Map
+      const map = new jsVectorMap({
+        selector: "#map-container",
+        map: "world",
+        backgroundColor: "transparent",
+
+        // Base styling for the map
+        regionStyle: {
+          initial: {
+            fill: "#e2e8f0", // Gray color for unassigned countries
+            fillOpacity: 1,
+            stroke: "#cbd5e1",
+            strokeWidth: 0.5,
+          },
+          hover: {
+            fillOpacity: 0.8,
+            cursor: "pointer",
+          },
+        },
+
+        // Apply our custom colors based on the regions
+        series: {
+          regions: [
+            {
+              attribute: "fill",
+              scale: regionColors,
+              values: countryToRegionMap,
             },
-            
-            // Apply our custom colors based on the regions
-            series: {
-                regions: [{
-                    attribute: 'fill',
-                    scale: regionColors,
-                    values: countryToRegionMap
-                }]
-            },
-            
-            // Show custom tooltips on hover
-            onRegionTooltipShow: function(event, tooltip, code) {
-                const regionName = countryToRegionMap[code];
-                if (regionName) {
-                    // Show "Country Name (Region Name)"
-                    tooltip.text(tooltip.text() + " (" + regionName + ")");
-                } else {
-                    // Optional: uncomment the next line to hide tooltips for unclickable areas
-                    // event.preventDefault(); 
-                }
-            },
-            
-            // Handle clicking on a country
-            onRegionClick: function(event, code) {
-                const regionName = countryToRegionMap[code];
-                if (regionName) {
-                    const targetUrl = regionsConfig[regionName].link;
-                    
-                    // Opens the link in a new tab. 
-                    // To open in the same tab, replace the line below with: window.location.href = targetUrl;
-                    window.open(targetUrl, '_blank'); 
-                }
-            }
-        });
+          ],
+        },
+
+        // Show custom tooltips on hover
+        onRegionTooltipShow: function (event, tooltip, code) {
+          const regionName = countryToRegionMap[code];
+          if (regionName) {
+            // Show "Country Name (Region Name)"
+            tooltip.text(tooltip.text() + " (" + regionName + ")");
+          } else {
+            // Optional: uncomment the next line to hide tooltips for unclickable areas
+            // event.preventDefault();
+          }
+        },
+
+        // Handle clicking on a country
+        onRegionClick: function (event, code) {
+          const regionName = countryToRegionMap[code];
+          if (regionName) {
+            const targetUrl = regionsConfig[regionName].link;
+
+            // Opens the link in a new tab.
+            // To open in the same tab, replace the line below with: window.location.href = targetUrl;
+            window.open(targetUrl, "_blank");
+          }
+        },
+      });
     </script>
-</body>
+  </body>
 </html>
