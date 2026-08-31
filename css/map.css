@@ -1,0 +1,137 @@
+/**
+ * Gideon's Travel Guide - Vector Map Theme Overrides
+ * Styling for jsVectorMap elements, SVG regions, and rich HTML tooltips.
+ */
+
+/* ==========================================================================
+   jsVectorMap Core Overrides
+   ========================================================================== */
+.jvm-container {
+  touch-action: pan-x pan-y;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.jvm-container path {
+  transition: fill 0.25s ease, stroke 0.25s ease, opacity 0.25s ease;
+  outline: none;
+}
+
+.jvm-container path:hover {
+  filter: brightness(1.12);
+}
+
+/* ==========================================================================
+   jsVectorMap Tooltip Styling
+   ========================================================================== */
+.jvm-tooltip {
+  position: absolute;
+  z-index: 1100;
+  pointer-events: none;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  font-family: var(--font-sans) !important;
+}
+
+.custom-map-tooltip {
+  background: var(--bg-surface-solid);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 160px;
+  animation: scaleIn 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.custom-map-tooltip.is-unassigned {
+  opacity: 0.85;
+}
+
+.tooltip-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tooltip-flag {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.tooltip-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.tooltip-region {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.tooltip-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.tooltip-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 4px;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--tooltip-accent, var(--accent-primary));
+}
+
+.tooltip-arrow {
+  font-size: 0.85rem;
+}
+
+.tooltip-unassigned-tag {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   Map Fallback Container
+   ========================================================================== */
+.map-fallback-msg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 30px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+}
+
+.map-fallback-msg h2 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.map-fallback-msg p {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}

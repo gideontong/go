@@ -1,268 +1,270 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gideon's Travel Guide</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    
+    <title>Gideon's Travel Guide | Interactive World Map</title>
+    <meta name="description" content="Explore Gideon Tong's interactive world travel guide map across 9 regions and global destinations." />
+    <meta name="author" content="Gideon Tong" />
+    <meta name="theme-color" content="#0b0f19" />
 
-    <!-- Favicon -->
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://go.gideontong.com/" />
+    <meta property="og:title" content="Gideon's Travel Guide | Interactive World Map" />
+    <meta property="og:description" content="An interactive world map of travel guides and destinations across North America, Europe, Asia, and more." />
+    <meta property="og:image" content="https://go.gideontong.com/favicon.svg" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Gideon's Travel Guide" />
+    <meta name="twitter:description" content="An interactive world map of travel guides and curated destinations." />
+
+    <!-- Favicon & Web Manifest -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="manifest" href="site.webmanifest" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      rel="icon"
-      type="image/svg+xml"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🗺️%3C/text%3E%3C/svg%3E"
+      href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
     />
 
-    <!-- Load jsVectorMap CSS for map styling -->
+    <!-- jsVectorMap Core CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css"
     />
-    <!-- Load Google Fonts - Google Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family:
-          "Google Sans",
-          system-ui,
-          -apple-system,
-          sans-serif;
-        margin: 0; /* Remove default body margin */
-        padding: 0; /* Remove default body padding */
-        background-color: #f8fafc;
-        overflow: hidden; /* Hide scrollbars if content exceeds viewport */
-      }
 
-      /* Style for the overlay container */
-      .header-overlay {
-        position: absolute; /* Position above the map */
-        top: 20px; /* Distance from the top */
-        left: 50%; /* Center horizontally */
-        transform: translateX(-50%); /* Adjust for true centering */
-        z-index: 100; /* Ensure it's above the map */
-        text-align: center;
-        max-width: 90%; /* Prevent overlay from going too wide on small screens */
-        padding: 15px 30px; /* Add padding around the text */
-        background: linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 1) 0%,
-          rgba(255, 255, 255, 0.8) 70%,
-          rgba(255, 255, 255, 0) 100%
-        ); /* White gradient fading to transparent */
-        border-radius: 12px; /* Soften the corners */
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-        opacity: 0; /* Start invisible for fade-in */
-        animation: fadeIn 1.5s ease-out 0.5s forwards; /* Fade-in animation */
-      }
-
-      /* Keyframe animation for fade-in */
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translate(
-            -50%,
-            -20px
-          ); /* Slight upward movement while fading */
-        }
-        to {
-          opacity: 1;
-          transform: translateX(-50%);
-        }
-      }
-
-      /* Adjust h1 and h2 styles within the overlay */
-      .header-overlay h1 {
-        color: #1a202c;
-        margin-bottom: 20px;
-      }
-      .header-overlay h2 {
-        color: #4a5568;
-        margin-top: -10px; /* Adjust spacing */
-        font-size: 1.3em; /* Making the subheader a bit smaller */
-      }
-      /* Style the container holding the map */
-      #map-container {
-        width: 100vw; /* Make map fill full viewport width */
-        height: 100vh; /* Make map fill full viewport height */
-        /* Removed max-width, padding, background, border-radius, box-shadow for a seamless fullscreen look */
-        background-color: transparent; /* Ensure body background can show through if desired */
-      }
-    </style>
+    <!-- Modular Custom Styles -->
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/map.css" />
   </head>
   <body>
-    <div class="header-overlay">
-      <h1>Gideon's Travel Guide</h1>
-      <h2>An interactive world map of the places to go!</h2>
-    </div>
-    <div id="map-container"></div>
+    <!-- Top Floating Header HUD -->
+    <header class="header-hud" role="banner">
+      <a href="/" class="brand-section" aria-label="Gideon's Travel Guide Home">
+        <div class="brand-icon-wrapper">
+          <svg class="brand-icon-svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1 class="brand-title">Gideon's Travel Guide</h1>
+          <span class="brand-subtitle">Interactive world map of places to explore</span>
+        </div>
+      </a>
 
-    <!-- Load jsVectorMap core library and the world map data -->
+      <!-- Dynamic Live Stats Pill -->
+      <div class="header-stats-group">
+        <div class="stats-pill" title="Active travel guide regions and curated destinations">
+          <span class="stats-dot-live"></span>
+          <span class="stats-highlight" id="stats-regions-count">9</span> Regions
+          <span class="stats-separator">•</span>
+          <span class="stats-highlight" id="stats-countries-count">64</span> Destinations
+        </div>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="header-actions">
+        <!-- Search Trigger Button -->
+        <button class="hud-btn search-trigger-btn" aria-label="Search destinations (Press Cmd+K or /)">
+          <svg class="hud-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <span>Search...</span>
+          <kbd class="search-hint-kbd">⌘K</kbd>
+        </button>
+
+        <!-- Regions Explorer Drawer Toggle -->
+        <button class="hud-btn has-label drawer-open-btn" aria-label="Explore all regions directory">
+          <svg class="hud-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Regions</span>
+        </button>
+
+        <!-- Theme Toggle Button -->
+        <button class="hud-btn icon-only theme-toggle-btn" aria-label="Toggle theme">
+          <svg class="hud-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="hud-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <!-- Fullscreen Toggle -->
+        <button class="hud-btn icon-only fullscreen-toggle-btn" aria-label="Toggle fullscreen view">
+          <svg class="hud-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- World Map Container -->
+    <main id="map-viewport" role="main">
+      <div class="map-grid-overlay"></div>
+      <div id="map-container" aria-label="Interactive world map showing travel destinations"></div>
+    </main>
+
+    <!-- Bottom Floating Region Legend Dock -->
+    <aside class="legend-dock-wrapper" aria-label="Region quick selector">
+      <nav id="regions-legend-dock" class="regions-legend-dock"></nav>
+    </aside>
+
+    <!-- Bottom Right Map Zoom & Reset Controls -->
+    <nav class="map-controls-dock" aria-label="Map zoom controls">
+      <button class="map-control-btn" id="btn-zoom-in" title="Zoom In" aria-label="Zoom In">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </button>
+      <button class="map-control-btn" id="btn-zoom-out" title="Zoom Out" aria-label="Zoom Out">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+      </button>
+      <button class="map-control-btn" id="btn-reset-view" title="Reset View" aria-label="Reset Map View">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="1 4 1 10 7 10"></polyline>
+          <polyline points="23 20 23 14 17 14"></polyline>
+          <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"></path>
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Destination / Region Preview Card -->
+    <aside id="region-preview-card" class="region-preview-card" aria-label="Destination details">
+      <div class="preview-card-header">
+        <div class="preview-title-wrap">
+          <div class="preview-icon-box" id="preview-icon">🌍</div>
+          <div>
+            <h2 class="preview-title" id="preview-title">Region Name</h2>
+            <span class="preview-subtitle" id="preview-subtitle">Regional Travel Guide</span>
+          </div>
+        </div>
+        <button class="preview-close-btn" id="preview-card-close" aria-label="Close preview card">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="preview-badge-row">
+        <span class="preview-badge" id="preview-badge">0 Destinations</span>
+      </div>
+
+      <p class="preview-desc" id="preview-desc">Curated travel itineraries, cultural landmarks, and destination highlights.</p>
+
+      <div class="preview-countries-list" id="preview-countries-list"></div>
+
+      <div class="preview-actions">
+        <a id="preview-link" href="#" target="_blank" rel="noopener noreferrer" class="preview-link-btn">
+          <span>Explore Guide</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </a>
+        <button class="preview-share-btn" id="preview-card-share" title="Copy Guide URL" aria-label="Copy Guide URL">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Search & Command Palette Modal -->
+    <div id="search-modal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Search destinations">
+      <div class="search-dialog">
+        <div class="search-input-header">
+          <svg class="search-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="text"
+            id="search-input"
+            class="search-input-field"
+            placeholder="Search countries, regions, or cities (e.g. Japan, Europe)..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button id="search-modal-close" class="search-modal-close-btn" aria-label="Close search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div id="search-results" class="search-results-list"></div>
+
+        <div class="search-modal-footer">
+          <div class="footer-kbd-group">
+            <span class="kbd-item"><kbd class="search-hint-kbd">↑</kbd> <kbd class="search-hint-kbd">↓</kbd> to navigate</span>
+            <span class="kbd-item"><kbd class="search-hint-kbd">↵</kbd> to select</span>
+            <span class="kbd-item"><kbd class="search-hint-kbd">esc</kbd> to close</span>
+          </div>
+          <span>Gideon's Travel Guide</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Regions Explorer Drawer / Sidebar -->
+    <div id="drawer-backdrop" class="drawer-backdrop"></div>
+    <aside id="regions-drawer" class="regions-drawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Regions directory">
+      <div class="drawer-header">
+        <div class="drawer-title-group">
+          <h2 class="drawer-title">Regions Directory</h2>
+          <span class="drawer-badge">9 Guides</span>
+        </div>
+        <button class="drawer-close-btn" aria-label="Close regions directory">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="drawer-body" id="drawer-regions-list"></div>
+    </aside>
+
+    <!-- External Libraries (jsVectorMap core & world map) -->
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
     <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
 
-    <script>
-      const regionsConfig = {
-        "North America": {
-          countries: ["US", "CA"],
-          link: "https://na.gideontong.com/",
-          color: "#3b82f6", // Blue
-        },
-        "Central America": {
-          countries: ["MX", "GT"],
-          link: "https://centralamerica.gideontong.com/",
-          color: "#0ea5e9", // Light Blue
-        },
-        "South America": {
-          countries: ["CL", "EC", "CO"],
-          link: "https://southamerica.gideontong.com/",
-          color: "#10b981", // Green
-        },
-        Europe: {
-          countries: [
-            "AL",
-            "AD",
-            "AT",
-            "BE",
-            "BA",
-            "BG",
-            "HR",
-            "CY",
-            "CZ",
-            "DK",
-            "FI",
-            "FR",
-            "DE",
-            "GR",
-            "HU",
-            "IS",
-            "IE",
-            "IT",
-            "LV",
-            "LU",
-            "MK",
-            "MT",
-            "MD",
-            "MC",
-            "ME",
-            "NL",
-            "NO",
-            "PL",
-            "PT",
-            "RO",
-            "SM",
-            "RS",
-            "SK",
-            "SI",
-            "ES",
-            "SE",
-            "CH",
-            "UA",
-            "BY",
-            "GB",
-            "VA",
-            "XK",
-            "TR",
-          ],
-          link: "https://europe.gideontong.com/",
-          color: "#f59e0b", // Amber
-        },
-        "East Asia": {
-          countries: ["JP", "ID", "SG", "TH", "VN", "CN", "KR", "TW", "MY"],
-          link: "https://asia.gideontong.com/",
-          color: "#ef4444", // Red
-        },
-        "South Asia": {
-          countries: ["IN"], // Just India for now
-          link: "https://southasia.gideontong.com/",
-          color: "#d946ef", // Fuchsia
-        },
-        "Middle East": {
-          countries: ["SY", "IL", "JO", "KW"],
-          link: "https://middleeast.gideontong.com/",
-          color: "#8b5cf6", // Violet
-        },
-        Oceania: {
-          countries: ["AU", "NZ"], // AUS and NZ
-          link: "https://oceania.gideontong.com/",
-          color: "#ec4899", // Pink
-        },
-        Africa: {
-          countries: ["MG"], // Madagascar
-          link: "https://africa.gideontong.com/",
-          color: "#facc15", // Yellow
-        },
-      };
-
-      // 2. Process the config so the map library can understand it
-      const countryToRegionMap = {};
-      const regionColors = {};
-
-      Object.entries(regionsConfig).forEach(([regionName, data]) => {
-        regionColors[regionName] = data.color;
-        data.countries.forEach((countryCode) => {
-          countryToRegionMap[countryCode] = regionName;
-        });
-      });
-
-      // 3. Initialize the Map
-      const map = new jsVectorMap({
-        selector: "#map-container",
-        map: "world",
-        backgroundColor: "transparent",
-
-        // Base styling for the map
-        regionStyle: {
-          initial: {
-            fill: "#e2e8f0", // Gray color for unassigned countries
-            fillOpacity: 1,
-            stroke: "#cbd5e1",
-            strokeWidth: 0.5,
-          },
-          hover: {
-            fillOpacity: 0.8,
-            cursor: "pointer",
-          },
-        },
-
-        // Apply our custom colors based on the regions
-        series: {
-          regions: [
-            {
-              attribute: "fill",
-              scale: regionColors,
-              values: countryToRegionMap,
-            },
-          ],
-        },
-
-        // Show custom tooltips on hover
-        onRegionTooltipShow: function (event, tooltip, code) {
-          const regionName = countryToRegionMap[code];
-          if (regionName) {
-            // Show "Country Name (Region Name)"
-            tooltip.text(tooltip.text() + " (" + regionName + ")");
-          } else {
-            // Optional: uncomment the next line to hide tooltips for unclickable areas
-            // event.preventDefault();
-          }
-        },
-
-        // Handle clicking on a country
-        onRegionClick: function (event, code) {
-          const regionName = countryToRegionMap[code];
-          if (regionName) {
-            const targetUrl = regionsConfig[regionName].link;
-
-            // Opens the link in a new tab.
-            // To open in the same tab, replace the line below with: window.location.href = targetUrl;
-            window.open(targetUrl, "_blank");
-          }
-        },
-      });
-    </script>
+    <!-- Application Modular Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
   </body>
 </html>
