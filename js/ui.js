@@ -27,11 +27,7 @@ class UIController {
     if (savedTheme === "dark" || savedTheme === "light") {
       return savedTheme;
     }
-    // Check OS preference
-    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-    return "dark"; // Default to dark for a modern, sleek map appearance
+    return "light"; // Default to light mode
   }
 
   initTheme() {

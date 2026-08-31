@@ -1,6 +1,6 @@
 /**
  * Gideon's Travel Guide - Global Styles & Design System
- * Modern design tokens, dark/light themes, typography, layout, and animations.
+ * Modern design tokens, light/dark themes, typography, layout, and animations.
  */
 
 :root {
@@ -17,49 +17,22 @@
   --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-bounce: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.2), 0 4px 8px -2px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 20px 40px -12px rgba(0, 0, 0, 0.35), 0 8px 16px -4px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 20px 40px -12px rgba(0, 0, 0, 0.2), 0 8px 16px -4px rgba(0, 0, 0, 0.1);
   --shadow-glow: 0 0 25px var(--accent-glow);
 }
 
 /* ==========================================================================
-   Dark Theme (Default)
+   Light Theme (Default)
    ========================================================================== */
 :root,
-[data-theme="dark"] {
-  --bg-base: #090d16;
-  --bg-surface: rgba(15, 23, 42, 0.78);
-  --bg-surface-elevated: rgba(30, 41, 59, 0.88);
-  --bg-surface-solid: #1e293b;
-  --bg-input: rgba(30, 41, 59, 0.6);
-  --bg-hover: rgba(255, 255, 255, 0.08);
-
-  --border-subtle: rgba(255, 255, 255, 0.1);
-  --border-medium: rgba(255, 255, 255, 0.18);
-  --border-focus: rgba(96, 165, 250, 0.6);
-
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --text-muted: #64748b;
-
-  --accent-primary: #3b82f6;
-  --accent-hover: #60a5fa;
-  --accent-glow: rgba(59, 130, 246, 0.35);
-
-  --map-ocean-gradient-start: #060911;
-  --map-ocean-gradient-end: #0f172a;
-}
-
-/* ==========================================================================
-   Light Theme
-   ========================================================================== */
 [data-theme="light"] {
-  --bg-base: #f1f5f9;
-  --bg-surface: rgba(255, 255, 255, 0.82);
-  --bg-surface-elevated: rgba(255, 255, 255, 0.95);
+  --bg-base: #f8fafc;
+  --bg-surface: rgba(255, 255, 255, 0.88);
+  --bg-surface-elevated: rgba(255, 255, 255, 0.96);
   --bg-surface-solid: #ffffff;
-  --bg-input: rgba(241, 245, 249, 0.9);
+  --bg-input: rgba(241, 245, 249, 0.92);
   --bg-hover: rgba(0, 0, 0, 0.05);
 
   --border-subtle: rgba(0, 0, 0, 0.08);
@@ -79,6 +52,33 @@
 }
 
 /* ==========================================================================
+   Dark Theme
+   ========================================================================== */
+[data-theme="dark"] {
+  --bg-base: #090d16;
+  --bg-surface: rgba(15, 23, 42, 0.82);
+  --bg-surface-elevated: rgba(30, 41, 59, 0.9);
+  --bg-surface-solid: #1e293b;
+  --bg-input: rgba(30, 41, 59, 0.7);
+  --bg-hover: rgba(255, 255, 255, 0.08);
+
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-medium: rgba(255, 255, 255, 0.18);
+  --border-focus: rgba(96, 165, 250, 0.6);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  --accent-primary: #3b82f6;
+  --accent-hover: #60a5fa;
+  --accent-glow: rgba(59, 130, 246, 0.35);
+
+  --map-ocean-gradient-start: #060911;
+  --map-ocean-gradient-end: #0f172a;
+}
+
+/* ==========================================================================
    CSS Reset & Base
    ========================================================================== */
 *, *::before, *::after {
@@ -91,6 +91,7 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  position: fixed;
   font-family: var(--font-sans);
   background-color: var(--bg-base);
   color: var(--text-primary);
@@ -112,6 +113,8 @@ body.drawer-open {
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   width: 100vw;
   height: 100vh;
   z-index: 1;
@@ -139,7 +142,7 @@ body.drawer-open {
   background-image: 
     radial-gradient(var(--border-subtle) 1px, transparent 1px);
   background-size: 32px 32px;
-  opacity: 0.4;
+  opacity: 0.5;
   z-index: 2;
 }
 
@@ -153,6 +156,7 @@ button {
   cursor: pointer;
   outline: none;
   color: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button:focus-visible,
@@ -172,22 +176,22 @@ a {
 @keyframes floatInDown {
   from {
     opacity: 0;
-    transform: translateY(-24px) scale(0.96);
+    transform: translateY(-16px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
 @keyframes floatInUp {
   from {
     opacity: 0;
-    transform: translateY(24px) scale(0.96);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
@@ -199,7 +203,7 @@ a {
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.92);
+    transform: scale(0.94);
   }
   to {
     opacity: 1;
@@ -209,10 +213,10 @@ a {
 
 @keyframes pulseGlow {
   0%, 100% {
-    box-shadow: 0 0 15px var(--accent-glow);
+    box-shadow: 0 0 10px var(--accent-glow);
   }
   50% {
-    box-shadow: 0 0 30px var(--accent-glow);
+    box-shadow: 0 0 22px var(--accent-glow);
   }
 }
 

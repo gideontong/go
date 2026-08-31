@@ -23,7 +23,7 @@ class TravelMapApp {
    * Get dynamic theme palette depending on active light/dark theme
    */
   getThemePalette() {
-    const isDark = document.documentElement.getAttribute("data-theme") !== "light";
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
     return {
       bg: "transparent",
       unassignedFill: isDark ? "#1e293b" : "#e2e8f0",
